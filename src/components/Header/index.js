@@ -1,5 +1,12 @@
 import React from "react";
-import { createStyles, Header, Container, rem, Image } from "@mantine/core";
+import {
+  createStyles,
+  Header,
+  Container,
+  rem,
+  Image,
+  Text,
+} from "@mantine/core";
 import logo from "../../logo/vermeg.png";
 
 const HEADER_HEIGHT = rem(90);
@@ -7,17 +14,17 @@ const HEADER_HEIGHT = rem(90);
 const useStyles = createStyles((theme) => ({
   root: {
     zIndex: 1000,
-    backgroundColor: theme.colors.lightBackground,
+    backgroundColor: theme.colors.nav,
   },
   header: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
     height: "100%",
-    paddingLeft: "1rem",
+    paddingLeft: "0.1rem",
     paddingRight: "1rem",
     maxWidth: "90rem",
-    marginLeft: "auto",
+
     marginRight: "auto",
     [theme.fn.smallerThan("xl")]: {
       maxWidth: "70rem",
@@ -40,9 +47,15 @@ const AppHeader = () => {
   const { classes } = useStyles();
 
   return (
-    <Header height={HEADER_HEIGHT} className={classes.root}>
+    <Header
+      height={HEADER_HEIGHT}
+      className={classes.root}
+      sx={{ border: "none" }}>
       <Container className={classes.header}>
-        <Image src={logo} width={400} height={50} fit="contain" />
+        {/* <Image src={logo} width={450} height={50} fit="contain" /> */}
+        <Text weight={900} size={90} style={{ color: "white" }}>
+          VERMEG
+        </Text>
       </Container>
     </Header>
   );

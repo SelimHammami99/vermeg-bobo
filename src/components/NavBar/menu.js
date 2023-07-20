@@ -1,18 +1,49 @@
-import { IconDashboard } from "@tabler/icons-react";
+import {
+  IconDashboard,
+  IconUserCircle,
+  IconWreckingBall,
+  IconLayoutDashboard,
+  IconUpload,
+  IconBrowser,
+} from "@tabler/icons-react";
 
 export const getMenu = () => {
   const menu = [
     {
+      id: "demo",
+      defaultLabel: "Demo",
+      link: "demo",
+      icon: IconWreckingBall,
+    },
+    {
       id: "productDashboard",
-      defaultLabel: "Product Dashboard",
+      defaultLabel: "Product",
       icon: IconDashboard,
       links: [
-        { id: "client", label: "Client", link: "client", icon: IconDashboard },
+        {
+          id: "client",
+          label: "Client",
+          icon: IconUserCircle,
+          links: [
+            {
+              id: "eik",
+              link: "eik",
+              label: "EIK",
+              icon: IconLayoutDashboard,
+            },
+            {
+              id: "upload",
+              link: "upload",
+              label: "Upload",
+              icon: IconUpload,
+            },
+          ],
+        },
         {
           id: "internal",
-          label: "Internal",
           link: "internal",
-          icon: IconDashboard,
+          label: "Internal Virtual Machine",
+          icon: IconBrowser,
         },
       ],
     },

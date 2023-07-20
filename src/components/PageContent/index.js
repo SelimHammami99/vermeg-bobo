@@ -5,6 +5,9 @@ import { Box, createStyles } from "@mantine/core";
 const useStyles = createStyles(() => ({
   container: {
     marginTop: 10,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));
 

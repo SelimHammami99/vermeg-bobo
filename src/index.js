@@ -5,8 +5,10 @@ import { MantineProvider } from "@mantine/core";
 import { theme } from "./theme";
 import App from "./routes/App";
 import ErrorPage from "./routes/ErrorPage";
-import ClientPage from "./routes/ClientPage";
 import InternalPage from "./routes/InternalPage";
+import EIKPage from "./routes/EIKPage";
+import UploadPage from "./routes/UploadPage";
+import DemoPage from "./routes/DemoPage";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +17,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "client",
-        element: <ClientPage />,
+        path: "demo",
+        element: <DemoPage />,
+        index: true,
+      },
+      {
+        path: "eik",
+        element: <EIKPage />,
+        index: true,
+      },
+      {
+        path: "upload",
+        element: <UploadPage />,
         index: true,
       },
       {

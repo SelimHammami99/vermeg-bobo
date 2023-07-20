@@ -5,6 +5,7 @@ export const theme = {
     dark: ["#37476C"],
     mid: ["#CBD5E1"],
     light: ["#E6ECF3"],
+    nav: ["#5593d3"],
   },
 
   globalStyles: (theme) => ({

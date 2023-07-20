@@ -5,7 +5,7 @@ import LinksGroup from "../NavBarLinksGroup/index";
 
 const useStyles = createStyles((theme) => ({
   navbar: {
-    backgroundColor: theme.colors.darkest,
+    backgroundColor: theme.colors.nav,
     paddingBottom: 0,
     paddingTop: 0,
     zIndex: 10,

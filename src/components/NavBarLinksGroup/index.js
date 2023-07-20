@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { IconPlus, IconMinus } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
+import { has } from "ramda";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -18,8 +19,26 @@ const useStyles = createStyles((theme) => ({
     display: "block",
     width: "100%",
     padding: "0.5rem",
-    color: theme.black,
+    color: theme.colors.light,
     fontSize: theme.fontSizes.sm,
+  },
+  controlLink: {
+    fontWeight: 500,
+    display: "block",
+    width: "100%",
+    padding: "0.5rem",
+    textDecoration: "none",
+    color: theme.colors.light,
+    fontSize: theme.fontSizes.sm,
+  },
+  controlSubLink: {
+    fontWeight: 500,
+    display: "block",
+    textDecoration: "none",
+    width: "100%",
+    padding: "0.5rem",
+    paddingLeft: "2rem",
+    color: theme.colors.light,
   },
   link: {
     fontWeight: 500,
@@ -27,7 +46,7 @@ const useStyles = createStyles((theme) => ({
     textDecoration: "none",
     padding: "0.5rem",
     paddingLeft: "2rem",
-    marginLeft: "1.5rem",
+    marginLeft: "1.2rem",
 
     color: theme.colors.light,
 
@@ -83,48 +102,94 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const NavbarLinksGroup = ({ id, defaultLabel, links, icon: Icon }) => {
+const NavbarLinksGroup = ({ id, defaultLabel, links, icon: Icon, link }) => {
   const { classes, theme, cx } = useStyles();
   const [active, setActive] = useState("client");
 
   const hasLinks = Array.isArray(links);
+
   const [opened, setOpened] = useState(false);
+  const [openedSubLink, setOpenedSubLink] = useState(false);
   const ChevronIcon = !opened ? IconPlus : IconMinus;
+  const ChevronIconSubLink = !openedSubLink ? IconPlus : IconMinus;
 
-  const items = (hasLinks ? links : []).map((subLink) => (
-    <Link
-      className={cx(classes.link, {
-        [classes.linkActive]: subLink.id === active,
-      })}
-      key={subLink.label}
-      to={subLink.link}
-      onClick={(event) => {
-        setActive(subLink.id);
-      }}>
-      <Group style={{ marginLeft: 20 }}>
-        <ThemeIcon
-          className={cx(classes.bullet, {
-            [classes.bulletActive]: subLink.id === active,
+  const renderSublinks = (sublinks) => {
+    const hasSubLinks = (link) =>
+      has("links", link) && Array.isArray(link.links);
+    return sublinks.map((subLink) => {
+      return hasSubLinks(subLink) ? (
+        <>
+          <UnstyledButton
+            onClick={() => setOpenedSubLink(!openedSubLink)}
+            className={classes.controlSubLink}>
+            <Group position="apart" spacing={0}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <ThemeIcon
+                  className={classes.icon}
+                  sx={{
+                    border: 0,
+                    backgroundColor: "transparent",
+                    color: theme.colors.light,
+                  }}
+                  size="lg"
+                  radius="sm">
+                  <subLink.icon />
+                </ThemeIcon>
+                <Box ml="xs" className={classes.label}>
+                  {subLink.label}
+                </Box>
+              </Box>
+              {hasLinks && (
+                <ChevronIconSubLink
+                  className={classes.chevron}
+                  size={14}
+                  stroke={1.5}
+                />
+              )}
+            </Group>
+          </UnstyledButton>
+          {hasSubLinks(subLink) && openedSubLink && (
+            <Collapse in={openedSubLink}>
+              {renderSublinks(subLink.links)}
+            </Collapse>
+          )}
+        </>
+      ) : (
+        <Link
+          className={cx(classes.link, {
+            [classes.linkActive]: subLink.id === active,
           })}
-          sx={{
-            border: 0,
-            backgroundColor: "transparent",
-            color:
-              subLink.id === active ? theme.colors.darkest : theme.colors.light,
-          }}
-          size="lg"
-          radius="sm">
-          <subLink.icon />
-        </ThemeIcon>
-        <Text className={classes.subLinkTxt}>{subLink.label}</Text>
-      </Group>
-    </Link>
-  ));
+          key={subLink.id}
+          to={subLink.link}
+          onClick={() => setActive(subLink.id)}>
+          <Group style={{ marginLeft: 20 }}>
+            <ThemeIcon
+              className={cx(classes.bullet, {
+                [classes.bulletActive]: subLink.id === active,
+              })}
+              sx={{
+                border: 0,
+                backgroundColor: "transparent",
+                color:
+                  subLink.id === active
+                    ? theme.colors.darkest
+                    : theme.colors.light,
+              }}
+              size="lg"
+              radius="sm">
+              <subLink.icon />
+            </ThemeIcon>
+            <Text className={classes.subLinkTxt}>{subLink.label}</Text>
+          </Group>
+        </Link>
+      );
+    });
+  };
 
-  return (
+  return hasLinks ? (
     <>
       <UnstyledButton
-        onClick={() => setOpened((o) => !o)}
+        onClick={() => setOpened(!opened)}
         className={classes.control}>
         <Group position="apart" spacing={0}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -149,8 +214,34 @@ const NavbarLinksGroup = ({ id, defaultLabel, links, icon: Icon }) => {
         </Group>
       </UnstyledButton>
 
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {hasLinks && opened && (
+        <Collapse in={opened}>{renderSublinks(links)}</Collapse>
+      )}
     </>
+  ) : (
+    <Link key={id} to={link} className={classes.controlLink}>
+      <Group position="apart" spacing={0}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <ThemeIcon
+            className={classes.icon}
+            sx={{
+              border: 0,
+              backgroundColor: "transparent",
+              color: theme.colors.light,
+            }}
+            size="lg"
+            radius="sm">
+            <Icon />
+          </ThemeIcon>
+          <Box ml="xs" className={classes.label}>
+            {defaultLabel}
+          </Box>
+        </Box>
+        {hasLinks && (
+          <ChevronIcon className={classes.chevron} size={14} stroke={1.5} />
+        )}
+      </Group>
+    </Link>
   );
 };
 
@@ -159,6 +250,7 @@ NavbarLinksGroup.propTypes = {
   links: PropTypes.array,
   icon: PropTypes.any,
   link: PropTypes.string,
+  defaultLabel: PropTypes.string,
 };
 
 export default NavbarLinksGroup;

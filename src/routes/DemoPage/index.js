@@ -17,20 +17,20 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const ClientPage = () => {
+const DemoPage = () => {
   const { classes } = useStyles();
   return (
     <Page>
       <PageHeader>
         <HeaderLeft>
-          <Text className={classes.title}>Client</Text>
+          <Text className={classes.title}>Demo</Text>
         </HeaderLeft>
       </PageHeader>
       <PageContent>
-        <Text className={classes.content}>Content in client</Text>
+        <Text className={classes.content}>Demo Page</Text>
       </PageContent>
     </Page>
   );
 };
 
-export default ClientPage;
+export default DemoPage;
