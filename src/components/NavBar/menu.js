@@ -19,16 +19,18 @@ export const getMenu = () => {
       id: "productDashboard",
       defaultLabel: "Product",
       icon: IconDashboard,
+
       links: [
         {
           id: "client",
           label: "Client",
           icon: IconUserCircle,
+          open: false,
           links: [
             {
               id: "eik",
-              link: "eik",
-              label: "EIK",
+              link: "elk",
+              label: "ELK",
               icon: IconLayoutDashboard,
             },
             {
@@ -41,9 +43,23 @@ export const getMenu = () => {
         },
         {
           id: "internal",
-          link: "internal",
-          label: "Internal Virtual Machine",
+          label: "Internal Dashboard",
           icon: IconBrowser,
+          open: false,
+          links: [
+            {
+              id: "vm1",
+              link: "virtualmachine1",
+              label: "Virtual Machine 1",
+              icon: IconLayoutDashboard,
+            },
+            {
+              id: "vm2",
+              link: "virtualmachine2",
+              label: "Virtual Machine 2",
+              icon: IconLayoutDashboard,
+            },
+          ],
         },
       ],
     },

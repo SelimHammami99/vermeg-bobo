@@ -17,20 +17,20 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const InternalPage = () => {
+const VM2Page = () => {
   const { classes } = useStyles();
   return (
     <Page>
       <PageHeader>
         <HeaderLeft>
-          <Text className={classes.title}>Internal</Text>
+          <Text className={classes.title}>Virtual Machine 2</Text>
         </HeaderLeft>
       </PageHeader>
       <PageContent>
-        <Text className={classes.content}>Content in internal</Text>
+        <Text className={classes.content}>Content in Virtual Machine 2</Text>
       </PageContent>
     </Page>
   );
 };
 
-export default InternalPage;
+export default VM2Page;

@@ -112,7 +112,7 @@ const NavbarLinksGroup = ({ id, defaultLabel, links, icon: Icon, link }) => {
   const [openedSubLink, setOpenedSubLink] = useState(false);
   const ChevronIcon = !opened ? IconPlus : IconMinus;
   const ChevronIconSubLink = !openedSubLink ? IconPlus : IconMinus;
-
+  console.log({ open: links?.open });
   const renderSublinks = (sublinks) => {
     const hasSubLinks = (link) =>
       has("links", link) && Array.isArray(link.links);

@@ -5,10 +5,11 @@ import { MantineProvider } from "@mantine/core";
 import { theme } from "./theme";
 import App from "./routes/App";
 import ErrorPage from "./routes/ErrorPage";
-import InternalPage from "./routes/InternalPage";
-import EIKPage from "./routes/EIKPage";
+import ELKPage from "./routes/ELKPage";
 import UploadPage from "./routes/UploadPage";
 import DemoPage from "./routes/DemoPage";
+import VM1Page from "./routes/VM1Page";
+import VM2Page from "./routes/VM2Page";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "eik",
-        element: <EIKPage />,
+        element: <ELKPage />,
         index: true,
       },
       {
@@ -32,8 +33,12 @@ const router = createBrowserRouter([
         index: true,
       },
       {
-        path: "internal",
-        element: <InternalPage />,
+        path: "virtualmachine1",
+        element: <VM1Page />,
+      },
+      {
+        path: "virtualmachine2",
+        element: <VM2Page />,
       },
     ],
   },
